@@ -2,23 +2,38 @@ import json
 
 json_input = '''[\n'''
 
+#formats json file into format used by python json module
 with open("voice-output/speech_marks.json", 'r') as file:
     for line in file:
         line=line.strip()
         json_input+="\t"+ line+",\n"
     json_input=json_input[:len(json_input)-2]+"\n]"
 print(json_input)
-# Parse JSON input
+
+# processes json using python module
 speech_marks = json.loads(json_input)
 
-# Function to generate subtitle format
+# function to be called in main hopefully LMAO
 def generate_subtitles(speech_marks, chunk_size=3):
     subtitles = []
     num_words = len(speech_marks)
     
+    # Quick explanation:
+    #
+    # the way the captions are processed is that the 
+    # paragraph is split into multiple "chunks" (determined by chunk_size)
+    # 
+    # each chunk will have a different "highlighted word" depending on 
+    # when that word is said (info found in speech marks)
+    # 
+    # the chunks are shown on the screen together and the words are highlighted one at a time
+    # 
+    # for an example video i based this on: 
+    # 
+        
     i = 0
     while i < num_words:
-        # Determine the chunk to work with
+        # chunk size stuffs
         start_index = i
         end_index = min(num_words, start_index + chunk_size)
         

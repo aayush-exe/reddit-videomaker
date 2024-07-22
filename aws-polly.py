@@ -13,10 +13,12 @@ session = Session(profile_name="default")
 polly = session.client("polly")
 
 def synthesize_polly_speech(input_text, local_file_name):
+    
+    # need <speak> wrappers here for SSML text
     ssml_text = f"<speak>{input_text}</speak>"
     
     try:
-        # Request speech synthesis with SSML text
+        # Request speech w/ SSML text 
         response = polly.synthesize_speech(
             Text=ssml_text,
             TextType="ssml",
@@ -25,7 +27,7 @@ def synthesize_polly_speech(input_text, local_file_name):
             Engine="neural"
         )
     except (BotoCoreError, ClientError) as error:
-        # AWS returned an error
+        # AWS error (uh oh)
         print(error)
         sys.exit(-1)
 
@@ -45,7 +47,7 @@ def synthesize_polly_speech(input_text, local_file_name):
         sys.exit(-1)
 
     try:
-        # Request speech marks with SSML text
+        # Request speech marks w/ text
         response_marks = polly.synthesize_speech(
             Text=ssml_text,
             TextType="ssml",
@@ -55,7 +57,7 @@ def synthesize_polly_speech(input_text, local_file_name):
             SpeechMarkTypes=["word", "ssml"]
         )
     except (BotoCoreError, ClientError) as error:
-        # AWS returned an error
+        # AWS error (bad)
         print(error)
         sys.exit(-1)
 
@@ -74,5 +76,5 @@ def synthesize_polly_speech(input_text, local_file_name):
         print("ERROR: Response did not contain speech marks data")
         sys.exit(-1)
 
-# Example usage
+# testcase
 synthesize_polly_speech("Hey chatters, this is me aayush coming at u from this python file, i'm having a great day and i hope you're having a great day as well\nits going pretty good in here", "speech")
