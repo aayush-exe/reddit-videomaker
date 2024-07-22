@@ -1,8 +1,5 @@
 import json
 
-# Sample JSON input
-
-
 json_input = '''[\n'''
 
 with open("voice-output/speech_marks.json", 'r') as file:
@@ -48,6 +45,6 @@ def generate_subtitles(speech_marks, chunk_size=3):
     return subtitles
 
 # Generate and print subtitles
-subtitles = generate_subtitles(speech_marks, chunk_size=3)
-for subtitle in subtitles:
-    print(subtitle)
+# subtitles = generate_subtitles(speech_marks, chunk_size=3)
+# for subtitle in subtitles:
+#     print(subtitle)
