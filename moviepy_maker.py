@@ -10,24 +10,25 @@ from smarks_processor import *
 
 video_duration = 30
 
-# Choose a random background from the "backgrounds" folder
-items = os.listdir("backgrounds")
-file_count = sum(1 for item in items if os.path.isfile(os.path.join("backgrounds", item))) - 1
-clip_number = str(random.randint(0, file_count - 1))
-background = VideoFileClip("backgrounds/background_" + clip_number + ".mp4")
+def select_randoms(video_duration):
+    # Choose a random background from the "backgrounds" folder
+    items = os.listdir("backgrounds")
+    file_count = sum(1 for item in items if os.path.isfile(os.path.join("backgrounds", item))) - 1
+    clip_number = str(random.randint(0, file_count - 1))
+    background = VideoFileClip("backgrounds/background_" + clip_number + ".mp4")
 
-# Select a random starting point
-starting = random.randint(0, int(background.duration - video_duration))
-background = background.subclip(starting, starting + video_duration)
+    # Select a random starting point
+    starting = random.randint(0, int(background.duration - video_duration))
+    background = background.subclip(starting, starting + video_duration)
 
-# get a random background audio clip
-items = os.listdir("music")
-file_count = sum(1 for item in items if os.path.isfile(os.path.join("music", item))) - 1
-clip_number = str(random.randint(0, file_count - 1))
-random_audio = "music/track_" + clip_number + ".mp3"
-audio_clips = ["voice-output/speech_voice.mp3", random_audio]
+    # get a random background audio clip
+    items = os.listdir("music")
+    file_count = sum(1 for item in items if os.path.isfile(os.path.join("music", item))) - 1
+    clip_number = str(random.randint(0, file_count - 1))
+    random_audio = "music/track_" + clip_number + ".mp3"
+    audio_clips = ["voice-output/speech_voice.mp3", random_audio]
 
-print("using clip #" + clip_number + " with starting time " + str(starting // 60) + ":" + str(starting % 60))
+    print("using clip #" + clip_number + " with starting time " + str(starting // 60) + ":" + str(starting % 60))
 
 def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280):
     clips = []
