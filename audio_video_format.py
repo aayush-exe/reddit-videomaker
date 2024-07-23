@@ -6,14 +6,15 @@ from moviepy.editor import *
 from moviepy.config import change_settings
 change_settings({"IMAGEMAGICK_BINARY": "/opt/homebrew/bin/convert"})
 
-from pydub import AudioSegment
+from mutagen.mp3 import MP3
 
+
+def get_audio_duration(file_path):
+    audio = MP3(file_path)
+    return audio.info.length
 
 def get_video_duration(file_path):
     return VideoFileClip(file_path).duration
-
-def get_audio_duration(file_path):
-    return AudioSegment.from_file(file_path).duration_seconds
 
 def weighted_random_choice(items, weights):
     return random.choices(items, weights=weights, k=1)[0]
@@ -50,6 +51,7 @@ def select_randoms(video_duration):
 
     print("Using video clip '{}' with starting time {}:{} and audio clip '{}'".format(
         selected_video, starting // 60, starting % 60, selected_audio))
+    return (background, audio_clips)
 
 # Example usage
-select_randoms(60)  # 60 seconds video duration
+# select_randoms(60)  # 60 seconds video duration

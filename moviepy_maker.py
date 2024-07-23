@@ -4,34 +4,17 @@ os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/bin/ffmpeg"
 
 from moviepy.editor import *
 from moviepy.config import change_settings
+from moviepy.audio.fx.all import *
 change_settings({"IMAGEMAGICK_BINARY": "/opt/homebrew/bin/convert"})
-
+from audio_video_format import *
 from smarks_processor import *
 
 video_duration = 30
 
-def select_randoms(video_duration):
-    # Choose a random background from the "backgrounds" folder
-    items = os.listdir("backgrounds")
-    file_count = sum(1 for item in items if os.path.isfile(os.path.join("backgrounds", item))) - 1
-    clip_number = str(random.randint(0, file_count - 1))
-    background = VideoFileClip("backgrounds/background_" + clip_number + ".mp4")
-
-    # Select a random starting point
-    starting = random.randint(0, int(background.duration - video_duration))
-    background = background.subclip(starting, starting + video_duration)
-
-    # get a random background audio clip
-    items = os.listdir("music")
-    file_count = sum(1 for item in items if os.path.isfile(os.path.join("music", item))) - 1
-    clip_number = str(random.randint(0, file_count - 1))
-    random_audio = "music/track_" + clip_number + ".mp3"
-    audio_clips = ["voice-output/speech_voice.mp3", random_audio]
-
-    print("using clip #" + clip_number + " with starting time " + str(starting // 60) + ":" + str(starting % 60))
 
 def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280):
     clips = []
+   
     for (start_time, end_time), current_text in subtitles:
         # Create a TextClip for each caption with a specific font and black outline
         txt_clip = TextClip(
@@ -58,22 +41,25 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
     # Load audio clips
     audio_clips = [AudioFileClip(clip) for clip in audio_clips]
 
+    # Speed up audio clips by the specified multiplier
+    audio_clips[0] = speedx(audio_clips, factor=1.5)
+
     # Combine audio clips
     combined_audio = CompositeAudioClip(audio_clips).set_duration(video.duration)
 
+
     # Add the combined audio to the video
     final_video = video.set_audio(combined_audio)
-    final_video.write_videofile("output/test_with_new_captions.mp4", fps=24, logger=None)
+    final_video.write_videofile("output/testing_more.mp4", fps=60, logger=None)
 
 # Path to the JSON input file
 file_path = 'voice-output/speech_marks.json'  # Update with the actual file path
 
 # Generate subtitles from the JSON input file
-subtitles = smarks_processor.generate_subtitles()
-
-
-
+subtitles = generate_subtitles()
+background, audio_clips = select_randoms(60)
 # Create the captions video with the background and audio
+
 create_captions_video(subtitles, background, audio_clips)
 
 # showing clip
