@@ -46,6 +46,7 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
     # Convert the first audio clip to a video clip with a blank frame and apply speedx
     video_clip_0 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[0].duration).set_audio(audio_clips[0])
     video_clip_0 = speedx(video_clip_0, factor=speed_mult)
+    video_clip_0.fx(afx.audio_normalize)
     audio_clips[0] = video_clip_0.audio
 
     # Combine audio clips

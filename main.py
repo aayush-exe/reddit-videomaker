@@ -5,7 +5,7 @@ from text_processor import *
 from audio_video_format import *
 
 
-speed_factor = 1.0
+speed_factor = 1.2
 text_file_path = 'input_files/current.txt'
 voice_file_path = 'voice-output/speech'
 output_file_path = 'output/mainpy-testing'
