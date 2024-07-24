@@ -19,6 +19,7 @@ def get_video_duration(file_path):
 def weighted_random_choice(items, weights):
     return random.choices(items, weights=weights, k=1)[0]
 
+
 def select_randoms(video_duration):
     # Define folder paths
     video_folder = "backgrounds"
@@ -33,7 +34,6 @@ def select_randoms(video_duration):
     # Select a random video based on weighted durations
     selected_video = weighted_random_choice(video_files, video_weights)
     background = VideoFileClip(f"{video_folder}/{selected_video}")
-
     # Select a random starting point
     starting = random.randint(0, int(background.duration - video_duration))
     background = background.subclip(starting, starting + video_duration)
@@ -53,5 +53,3 @@ def select_randoms(video_duration):
         selected_video, starting // 60, starting % 60, selected_audio))
     return (background, audio_clips)
 
-# Example usage
-# select_randoms(60)  # 60 seconds video duration

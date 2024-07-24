@@ -16,10 +16,10 @@ def load_input(input_file_path):
 
 
 # function to be called in main hopefully LMAO
-def generate_subtitles():
+def generate_subtitles(speed_mult = 1, local_file_path = 'voice-output/speech'):
     
     # loading input and calling prev func
-    json_input = load_input(input_file_path="voice-output/speech_marks.json")
+    json_input = load_input(input_file_path=local_file_path)
     speech_marks = json.loads(json_input)
     
     subtitles = []
@@ -44,8 +44,8 @@ def generate_subtitles():
     while i < num_words:
         
         # get values from json value
-        start_time = speech_marks[i]['time'] + 1
-        end_time = speech_marks[i + 1]['time'] if i + 1 < num_words else start_time + 500
+        start_time = (speech_marks[i]['time'] + 1) / speed_mult
+        end_time = (speech_marks[i + 1]['time']) / speed_mult if i + 1 < num_words else start_time + 1500
         current_word = speech_marks[i]['value']
         
         # create tuples based on those values
@@ -55,8 +55,3 @@ def generate_subtitles():
         i += 1
     
     return subtitles
-
-# Test code (comment if real)
-subtitles = generate_subtitles()
-for subtitle in subtitles:
-    print(subtitle)

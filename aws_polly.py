@@ -1,4 +1,3 @@
-import boto3
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
@@ -6,7 +5,7 @@ import os
 import sys
 
 # Local file path, will differ
-save_directory = "voice-output"
+save_directory = ""
 
 # Initialize a session using AWS Polly
 session = Session(profile_name="default")
@@ -77,4 +76,4 @@ def synthesize_polly_speech(input_text, local_file_name):
         sys.exit(-1)
 
 # testcase
-synthesize_polly_speech("Hey chatters, this is me aayush coming at u from this python file, i'm having a great day and i hope you're having a great day as well\nits going pretty good in here", "speech")
+
