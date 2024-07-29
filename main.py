@@ -7,14 +7,14 @@ from audio_video_format import *
 speed_mult = "fast"
 text_file_path = 'input_files/current.txt'
 voice_file_path = 'voice-output/speech'
-output_file_path = 'output/mainpy-testing'
+output_file_path = 'output/position-testing'
 
 def make_money():
     
     print('Processing text')
     init_text = process_text_file(text_file_path)
     print('Sending speech requests')
-    # synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
+    synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
     
     # Generate subtitles from the JSON input file
     print('Processing subtitles')

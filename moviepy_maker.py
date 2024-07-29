@@ -24,18 +24,19 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
         txt_clip = TextClip(
             current_text,
             fontsize=90,
-            color='white',
-            font='Arial-Rounded-MT-Bold',  # Update with the path to your font if necessary
-            stroke_color='black',
-            stroke_width=3,
-            size=(video_width, (video_height // 4) + 400)
+            color='black',
+            font='data/Futura ExtraBold Shaded.ttf',  # Update with the path to your font if necessary
+            #stroke_color='black',
+            #stroke_width=3,
+            size=(video_width, (video_height // 4))
         )
 
         # Set the position and duration for each TextClip
+        txt_clip = txt_clip.set_position(("center", video_height // 2 - (video_height // 4) + 75))
         txt_clip = txt_clip.set_start(start_time / 1000).set_duration((end_time - start_time) / 1000).set_position('center')
 
         # Apply animation to the highlighted word
-        txt_clip = txt_clip.crossfadein(0.03)
+        txt_clip = txt_clip.crossfadein(0.05)
         
         clips.append(txt_clip)
     
@@ -57,7 +58,7 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
 
     # Add the combined audio to the video
     final_video = video.set_audio(combined_audio)
-    final_video.write_videofile(output_path, threads = 8, fps=60, logger=None)
+    final_video.write_videofile(output_path, threads = 32, fps=60, logger=None)
 
 
 
