@@ -13,33 +13,10 @@ change_settings({"IMAGEMAGICK_BINARY": "/opt/homebrew/bin/convert"})
 from audio_video_format import *
 from smarks_processor import *
 
-from pydub import AudioSegment
-import librosa
-
-
 
 video_duration = 30
 
-def speed_up_speech_audio(audio_file_path, speed_mult = 1.0):
-
-    audio = AudioSegment.from_file(audio_file_path)
-
-    # Export the audio to a temporary WAV file
-    audio.export("temp.wav", format="wav")
-
-    # Load the temporary WAV file using librosa
-    y, sr = librosa.load("temp.wav")
-
-    y_fast = librosa.effects.time_stretch(y, speed_mult)
-
-    # Export the modified audio back to MP3
-    librosa.output.write_wav("temp_fast.wav", y_fast, sr)
-    fast_audio = AudioSegment.from_wav("temp_fast.wav")
-    fast_audio.export(audio_file_path, format="mp3")
-
-
-
-def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280, speed_mult = 1.0, output_path = 'output/default-file-name'):
+def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280, output_path = 'output/default-file-name'):
     clips = []
        
     for (start_time, end_time), current_text in subtitles:
@@ -68,9 +45,7 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
     audio_clips = [AudioFileClip(clip) for clip in audio_clips]
 
     # Convert the first audio clip to a video clip with a blank frame and apply speedx
-    video_clip_0 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[0].duration).set_audio(audio_clips[0])
-    video_clip_0 = speedx(video_clip_0, factor=speed_mult)
-    
+    video_clip_0 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[0].duration).set_audio(audio_clips[0])    
     video_clip_1 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[1].duration).set_audio(audio_clips[1])
 
     audio_clips[0] = video_clip_0.audio

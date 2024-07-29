@@ -11,10 +11,18 @@ save_directory = ""
 session = Session(profile_name="default")
 polly = session.client("polly")
 
-def synthesize_polly_speech(input_text, local_file_name):
+def synthesize_polly_speech(input_text, local_file_name, speed_mod):
     
-    # need <speak> wrappers here for SSML text
-    ssml_text = f"<speak>{input_text}</speak>"
+    rate = speed_mod+"%" if speed_mod.isdigit() else speed_mod
+    
+    # need <speak> and <prosody> wrappers here for SSML text and speed
+    ssml_text = f"""
+    <speak>
+        <prosody rate="{rate}">
+            {input_text}
+        </prosody>
+    </speak>
+    """
     
     try:
         # Request speech w/ SSML text 
