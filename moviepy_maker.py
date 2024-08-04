@@ -37,7 +37,7 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
         txt_clip = txt_clip.set_start(start_time / 1000).set_duration((end_time - start_time) / 1000)
 
         # Apply animation to the highlighted word
-        txt_clip = txt_clip.crossfadein(0.05)
+        # txt_clip = txt_clip.crossfadein(0.03)
         
         clips.append(txt_clip)
     
@@ -51,7 +51,7 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
     video_clip_1 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[1].duration).set_audio(audio_clips[1])
 
     audio_clips[0] = video_clip_0.audio
-    audio_clips[1] = video_clip_1.fx(afx.audio_normalize).audio
+    # audio_clips[1] = video_clip_1.fx(afx.audio_normalize).audio
 
     # Combine audio clips
     combined_audio = CompositeAudioClip(audio_clips).set_duration(video.duration)

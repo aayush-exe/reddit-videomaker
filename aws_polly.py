@@ -19,7 +19,8 @@ def synthesize_polly_speech(input_text, local_file_name, speed_mod):
     ssml_text = f"""
     <speak>
         <prosody rate="{rate}">
-            {input_text}
+            {input_text}.
+            Follow for more tips.
         </prosody>
     </speak>
     """
