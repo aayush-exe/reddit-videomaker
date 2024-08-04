@@ -14,7 +14,7 @@ def make_money():
     print('Processing text')
     init_text = process_text_file(text_file_path)
     print('Sending speech requests')
-    synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
+    # synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
     
     # Generate subtitles from the JSON input file
     print('Processing subtitles')

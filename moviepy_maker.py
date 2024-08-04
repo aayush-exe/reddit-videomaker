@@ -18,22 +18,23 @@ video_duration = 30
 
 def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280, output_path = 'output/default-file-name'):
     clips = []
-       
+    offset = 200
     for (start_time, end_time), current_text in subtitles:
         # Create a TextClip for each caption with a specific font and black outline
         txt_clip = TextClip(
             current_text,
-            fontsize=90,
-            color='black',
-            font='data/Futura ExtraBold Shaded.ttf',  # Update with the path to your font if necessary
-            #stroke_color='black',
-            #stroke_width=3,
+            fontsize=65,
+            color='white',
+            font='data/PolanCanIntoBigWritings.otf',  # Update with the path to your font if necessary
+            stroke_color='black',
+            stroke_width=5,
             size=(video_width, (video_height // 4))
         )
 
         # Set the position and duration for each TextClip
-        txt_clip = txt_clip.set_position(("center", video_height // 2 - (video_height // 4) + 75))
-        txt_clip = txt_clip.set_start(start_time / 1000).set_duration((end_time - start_time) / 1000).set_position('center')
+        # Assuming video_height and offset are already defined
+        txt_clip = txt_clip.set_position(("center", video_height // 2 - offset))
+        txt_clip = txt_clip.set_start(start_time / 1000).set_duration((end_time - start_time) / 1000)
 
         # Apply animation to the highlighted word
         txt_clip = txt_clip.crossfadein(0.05)

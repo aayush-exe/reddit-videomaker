@@ -22,8 +22,8 @@ def weighted_random_choice(items, weights):
 
 def select_randoms(video_duration):
     # Define folder paths
-    video_folder = "backgrounds"
-    audio_folder = "music"
+    video_folder = "data/backgrounds"
+    audio_folder = "data/music"
 
     # Get all video files and their durations
     video_count = len([f for f in os.listdir(video_folder) if f.startswith('background_') and f.endswith('.mp4')])
