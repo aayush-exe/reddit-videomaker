@@ -4,6 +4,7 @@ os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/bin/ffmpeg"
 
 from moviepy.editor import *
 from moviepy.config import change_settings
+import moviepy.video.fx.all as vfx
 change_settings({"IMAGEMAGICK_BINARY": "/opt/homebrew/bin/convert"})
 
 from mutagen.mp3 import MP3
@@ -37,6 +38,10 @@ def select_randoms(video_duration):
     # Select a random starting point
     starting = random.randint(0, int(background.duration - video_duration))
     background = background.subclip(starting, starting + video_duration)
+    
+    background = background.fl_image(lambda image: image * 0.8)
+    # background = background.fx(vfx.multiply_color, 0.5)
+    background =  background.fx(vfx.speedx, 1.2)
 
     # Get all audio files and their durations
     audio_count = len([f for f in os.listdir(audio_folder) if f.startswith('track_') and f.endswith('.mp3')])

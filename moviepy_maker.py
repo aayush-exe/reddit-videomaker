@@ -23,26 +23,27 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
         # Create a TextClip for each caption with a specific font and black outline
         txt_clip = TextClip(
             current_text,
-            fontsize=65,
+            fontsize=50,
             color='white',
             font='data/PolanCanIntoBigWritings.otf',  # Update with the path to your font if necessary
             stroke_color='black',
-            stroke_width=5,
+            stroke_width=3.5,
             size=(video_width, (video_height // 4))
         )
-
+        
         # Set the position and duration for each TextClip
         # Assuming video_height and offset are already defined
-        txt_clip = txt_clip.set_position(("center", video_height // 2 - offset))
-        txt_clip = txt_clip.set_start(start_time / 1000).set_duration((end_time - start_time) / 1000)
+        
+        # txt_clip = txt_clip.fadein(0.03)
 
-        # Apply animation to the highlighted word
-        # txt_clip = txt_clip.crossfadein(0.03)
+        txt_clip = txt_clip.set_position(("center", video_height // 2 - offset))
+        txt_clip = txt_clip.set_start((start_time / 1000)).set_duration(((end_time - start_time) / 1000))
         
         clips.append(txt_clip)
-    
+
+     
     # Combine text clips with background video
-    video = CompositeVideoClip([background] + clips, size=(video_width, video_height))
+    video = CompositeVideoClip([background]+clips, size=(video_width, video_height))
 
     audio_clips = [AudioFileClip(clip) for clip in audio_clips]
 

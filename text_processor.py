@@ -1,10 +1,10 @@
 import re
 
 def replace_acronyms(text):
-    """Replace common acronyms with their full-length counterparts."""
+    # Replace common acronyms with their full-length counterparts.
     replacements = {
-        "AITA": "Am I the Asshole",
-        "TIL": "Today I Learned",
+        "AITA": "Am I the asshole",
+        "TIL": "Today I learned",
         "IMO": "In My Opinion",
         "IMHO": "In My Humble Opinion",
         "TL;DR": "Too Long; Didn't Read",
@@ -12,8 +12,6 @@ def replace_acronyms(text):
         "BRB": "Be Right Back",
         "BTW": "By The Way",
         "IDK": "I Don't Know",
-        "OMG": "Oh My God",
-        "LOL": "Laugh Out Loud",
         "FYI": "For Your Information",
         "OP": "Original Poster",
         "DM": "Direct Message",

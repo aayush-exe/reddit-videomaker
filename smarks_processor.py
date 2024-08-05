@@ -46,9 +46,15 @@ def generate_subtitles(local_file_path = 'voice-output/speech'):
         # get values from json value
         start_time = (speech_marks[i]['time'] + 1)
         end_time = (speech_marks[i + 1]['time']) if i + 1 < num_words else start_time + 1500
-        current_word = speech_marks[i]['value'].lower()
+        current_word = speech_marks[i]['value']
         
+        if (end_time - start_time)<170 and i + 2 < num_words:
+            end_time = (speech_marks[i + 2]['time'])
+            current_word += " "+speech_marks[i+1]['value']
+            i+=1
+
         # create tuples based on those values
+        # current_word = current_word.lower()
         subtitle = ((start_time, end_time), current_word)
         subtitles.append(subtitle)
         
