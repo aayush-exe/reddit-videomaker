@@ -25,9 +25,7 @@ def get_openai_response(characters, plot):
             max_tokens=600,  # Adjust the number of tokens as needed
         )
         try:
-            print(response)
             generated_text = response.choices[0].message.content
-            print(generated_text)
             with open('input_files/current.txt', 'w') as file:
                 file.write(generated_text.strip())
             print(f"Response written successfully")
@@ -36,5 +34,3 @@ def get_openai_response(characters, plot):
 
     except Exception as e:
         print( f"An error occurred: {e}")
-
-get_openai_response("Andres Garcia (likes to say he went to stanford a lot), Brian Hu, Gerald Lu (objectively a GOAT)", "andres and brian make gerald lose in a game of league of legends and gerald gets mad")
