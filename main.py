@@ -3,6 +3,7 @@ from moviepy_maker import *
 from smarks_processor import *
 from text_processor import *
 from audio_video_format import *
+from openai_custom import *
 
 speed_mult = "115"
 text_file_path = 'input_files/current.txt'
@@ -10,11 +11,12 @@ voice_file_path = 'voice-output/speech'
 output_file_path = 'output/position-testing'
 
 def make_money():
+    get_openai_response("Andres Garcia (likes to say he went to stanford a lot), Brian Hu, Gerald Lu (objectively a GOAT)", "andres and brian make gerald lose in a game of league of legends and gerald gets mad")
     
     print('Processing text')
     init_text = process_text_file(text_file_path)
     print('Sending speech requests')
-    # synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
+    synthesize_polly_speech(init_text, voice_file_path, speed_mod=speed_mult)
     
     # Generate subtitles from the JSON input file
     print('Processing subtitles')
@@ -31,4 +33,4 @@ def make_money():
     
     print('Video successfully saved as '+output_file_path+'.mp4')
     
-# make_money()
+make_money()
