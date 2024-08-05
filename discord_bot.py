@@ -12,6 +12,8 @@ bot = commands.Bot(command_prefix='mogus ', intents=intents)
 
 busy = False
 
+guildID = 836742375577485344
+
 @bot.event
 async def on_ready():
     print(f'Successfully logged in as {bot.user}')
@@ -21,7 +23,11 @@ async def bogus(ctx):
     #make_money()
     await ctx.send("meow")
 
-@tree.command(name="custom_video", description="Makes video w/ custom characters+plot")
+@tree.command(
+    name="custom_video", 
+    description="Makes video w/ custom characters+plot",
+    guild=discord.Object(id=12417128931)
+)
 @app_commands.describe(characters="Characters for the video", plot="Plot for the video")
 async def gen_video(interaction: discord.Interaction, characters: str, plot: str):
     global busy
@@ -43,6 +49,13 @@ async def gen_video(interaction: discord.Interaction, characters: str, plot: str
 
     busy = False
     await interaction.response.send_message("Video made successfully")
+
+
+@client.event
+async def on_ready():
+    await tree.sync(guild=discord.Object(id=12417128931))
+    print("Synced")
+    
 
 ffile = open('data/secret.txt', 'r')
 
