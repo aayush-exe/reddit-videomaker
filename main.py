@@ -20,13 +20,15 @@ def make_money():
     print('Processing subtitles')
     subtitles = generate_subtitles(local_file_path = voice_file_path+'_marks.json')
     
+    video_duration = int((get_audio_duration(voice_file_path+"_voice.mp3"))+2)
+    
     print('Creating background and music')
-    background, audio_clips = select_randoms(int((get_audio_duration(voice_file_path+"_voice.mp3"))+2))
+    background, audio_clips = select_randoms(video_duration)
     # Create the captions video with the background and audio
 
     print('Adding captions')
-    create_captions_video(subtitles, background, audio_clips, output_path=output_file_path+'.mp4')
+    create_captions_video(subtitles, background, audio_clips, video_duration, output_path=output_file_path+'.mp4')
     
     print('Video successfully saved as '+output_file_path+'.mp4')
     
-make_money()
+# make_money()

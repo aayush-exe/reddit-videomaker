@@ -2,7 +2,7 @@ import os
 
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/bin/ffmpeg"
 os.environ["IMAGEIO_FFPROBE_EXE"] = "/opt/homebrew/bin/ffprobe"
-
+import random
 from moviepy.editor import *
 from moviepy.config import change_settings
 from moviepy.audio.fx.all import *
@@ -16,7 +16,7 @@ from smarks_processor import *
 
 video_duration = 30
 
-def create_captions_video(subtitles, background, audio_clips, video_width=720, video_height=1280, output_path = 'output/default-file-name'):
+def create_captions_video(subtitles, background, audio_clips, video_duration, video_width=720, video_height=1280, output_path = 'output/default-file-name',):
     clips = []
     offset = 200
     for (start_time, end_time), current_text in subtitles:
@@ -49,13 +49,18 @@ def create_captions_video(subtitles, background, audio_clips, video_width=720, v
 
     # Convert the first audio clip to a video clip with a blank frame and apply speedx
     video_clip_0 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[0].duration).set_audio(audio_clips[0])    
-    video_clip_1 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=audio_clips[1].duration).set_audio(audio_clips[1])
 
-    audio_clips[0] = video_clip_0.audio
-    # audio_clips[1] = video_clip_1.fx(afx.audio_normalize).audio
+    video_duration = video.duration
+    audio_duration = audio_clips[1].duration
+    max_start_time = audio_duration - video_duration
+    random_start_time = random.uniform(0, max_start_time)
+
+    # Trim the second audio clip to start from the random start time
+    trimmed_audio_clip_1 = audio_clips[1].subclip(random_start_time, random_start_time + video_duration)
+    video_clip_1 = ColorClip(size=(1, 1), color=(0, 0, 0), duration=trimmed_audio_clip_1.duration).set_audio(trimmed_audio_clip_1)
 
     # Combine audio clips
-    combined_audio = CompositeAudioClip(audio_clips).set_duration(video.duration)
+    combined_audio = CompositeAudioClip([video_clip_0.audio, video_clip_1.audio]).set_duration(video.duration)
 
 
     # Add the combined audio to the video

@@ -21,6 +21,7 @@ def weighted_random_choice(items, weights):
     return random.choices(items, weights=weights, k=1)[0]
 
 
+video_speed = 1.2
 def select_randoms(video_duration):
     # Define folder paths
     video_folder = "data/backgrounds"
@@ -36,12 +37,14 @@ def select_randoms(video_duration):
     selected_video = weighted_random_choice(video_files, video_weights)
     background = VideoFileClip(f"{video_folder}/{selected_video}")
     # Select a random starting point
-    starting = random.randint(0, int(background.duration - video_duration))
-    background = background.subclip(starting, starting + video_duration)
+    
+    real_duration = video_duration * video_speed
+    starting = random.randint(0, int(background.duration - real_duration))
+    background = background.subclip(starting, starting + real_duration)
     
     background = background.fl_image(lambda image: image * 0.8)
     # background = background.fx(vfx.multiply_color, 0.5)
-    background =  background.fx(vfx.speedx, 1.2)
+    background =  background.fx(vfx.speedx,video_speed)
 
     # Get all audio files and their durations
     audio_count = len([f for f in os.listdir(audio_folder) if f.startswith('track_') and f.endswith('.mp3')])
