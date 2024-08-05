@@ -1,9 +1,12 @@
 import discord
+from discord import app_commands
 from discord.ext import commands
 from main import *
 
 intents = discord.Intents.default()
 intents.message_content = True
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
 
 bot = commands.Bot(command_prefix='mogus ', intents=intents)
 
@@ -18,18 +21,28 @@ async def bogus(ctx):
     #make_money()
     await ctx.send("meow")
 
-@slash.slash(name="custom video", description="Makes video w/ custom characters+plot")
-async def ping(ctx: SlashContext, characters: str, plot: str):
-    if (busy):
-        await ctx.send("making a different video rn, try again in a few mins")
+@tree.command(name="custom_video", description="Makes video w/ custom characters+plot")
+@app_commands.describe(characters="Characters for the video", plot="Plot for the video")
+async def gen_video(interaction: discord.Interaction, characters: str, plot: str):
+    global busy
+    if busy:
+        await interaction.response.send_message("Making a different video rn, try again in a few mins")
         return
+
     busy = True
-    
+
+    # Placeholder functions for your actual implementation
+    def set_username(username):
+        print(f"Username set to: {username}")
+
+    def make_money():
+        print("Making money...")
+
+    set_username(interaction.user.name)
     make_money()
+
     busy = False
-    await ctx.send("Video made successfully")
-
-
+    await interaction.response.send_message("Video made successfully")
 
 ffile = open('data/secret.txt', 'r')
 

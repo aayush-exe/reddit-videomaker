@@ -4,14 +4,29 @@ from smarks_processor import *
 from text_processor import *
 from audio_video_format import *
 from openai_custom import *
+from datetime import datetime
+
+username = "admin"
+
+def set_username(new_user):
+    global username
+    username = new_user
+
+def get_timestamp():
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+    date_time = datetime.fromtimestamp(timestamp)
+    formatted_date = date_time.strftime("%A_%B_%d,%H:%M:%S")
+    return formatted_date
 
 speed_mult = "115"
 text_file_path = 'input_files/current.txt'
 voice_file_path = 'voice-output/speech'
-output_file_path = 'output/position-testing'
+output_file_path = 'output/DEFAULT'
 
 def make_money():
-    get_openai_response("Andres Garcia (likes to say he went to stanford a lot), Brian Hu, Gerald Lu (objectively a GOAT)", "andres and brian make gerald lose in a game of league of legends and gerald gets mad")
+    output_file_path = 'output/'+get_timestamp()+",@"+username
+    get_openai_response("Andres Garcia (likes to say he went to stanford a lot), Erin Song, Emmy Vu", "AITA andres promised erin and emmy to play valorant with them but later he ditched them for league of legends")
     
     print('Processing text')
     init_text = process_text_file(text_file_path)
@@ -33,4 +48,3 @@ def make_money():
     
     print('Video successfully saved as '+output_file_path+'.mp4')
     
-make_money()
