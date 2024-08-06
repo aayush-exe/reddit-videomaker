@@ -6,3 +6,4 @@ data/secret.txt
 voice-output/speech_marks.json
 client_secrets.json
 token.json
+client_secret.json
