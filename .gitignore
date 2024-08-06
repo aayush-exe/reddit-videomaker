@@ -3,3 +3,4 @@
 *.mp3
 input_files
 data/secret.txt
+voice-output/speech_marks.json
