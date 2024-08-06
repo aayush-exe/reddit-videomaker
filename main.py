@@ -51,7 +51,7 @@ def make_money(type=0):
     youtube_link = "none"
     
     print('Uploading to Google Drive')
-    youtube_link = upload_to_google(output_file_path+".mp4", output_file_path+".mp4")
+    youtube_link = upload_to_google(output_file_path+".mp4", "test_videos/"+output_file_path+".mp4")
     
     
     print('Cleaning up...')

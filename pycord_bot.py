@@ -14,7 +14,7 @@ busy = False
 @bot.slash_command(
    name="custom_video",
     description="Add custom characters, character traits, and plot",
-    guild_ids=[836742375577485344]
+    guild_ids=[836742375577485344, 933924457079275540]
 )
 async def create_video(
   ctx, 
@@ -29,8 +29,21 @@ async def create_video(
     
     set_username(ctx.user.name)
     get_openai_response(characters=characters, plot=plot_description)
-    youtube_link = make_money(1)
-    await ctx.respond("It's finished! Link: "+youtube_link)
+    youtube_link = make_money(1).strip()
+
+    
+    
+    embed = discord.Embed(
+        title="Video from @"+ctx.user.name,
+        description="Thanks for using mogusbogusmeow",
+        color=0x00ff00  # You can customize the color
+    )
+    
+    # Replace 'FILE_ID' with the actual ID of your video file
+    embed.add_field(name="epic video!!1!", value=f"[Click to view]({youtube_link})")
+    await ctx.respond(embed=embed)
+        
+    # await ctx.respond("Link: "+youtube_link)
     busy = False
     
 

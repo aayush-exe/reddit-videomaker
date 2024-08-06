@@ -50,4 +50,7 @@ def upload_to_google(file_path, file_name):
     service = authenticate()
     file_id, file_link = upload_file(service, file_path, file_name, 'video/mp4')
     make_file_public(service, file_id)
+    file_link = file_link[:-17]+"preview"
     return file_link
+
+# print(upload_to_google("/Users/aayush/Documents/reddit-videomaker/reddit-videomaker/output/08052024,22:01:57,from@agushagush.mp4", "new/new.mp4"))
