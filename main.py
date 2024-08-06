@@ -24,10 +24,9 @@ text_file_path = 'input_files/current.txt'
 voice_file_path = 'voice-output/speech'
 output_file_path = 'output/DEFAULT'
 
-def make_money():
+def make_money(type=0):
     output_file_path = 'output/'+get_timestamp()+",@"+username
-    get_openai_response("Andres Garcia (likes to say he went to stanford a lot), Erin Song, Emmy Vu", "AITA andres promised erin and emmy to play valorant with them but later he ditched them for league of legends")
-    
+
     print('Processing text')
     init_text = process_text_file(text_file_path)
     print('Sending speech requests')
