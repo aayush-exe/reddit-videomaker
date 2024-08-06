@@ -23,7 +23,7 @@ def create_captions_video(subtitles, background, audio_clips, video_duration, vi
         # Create a TextClip for each caption with a specific font and black outline
         txt_clip = TextClip(
             current_text,
-            fontsize=50,
+            fontsize=44,
             color='white',
             font='data/PolanCanIntoBigWritings.otf',  # Update with the path to your font if necessary
             stroke_color='black',

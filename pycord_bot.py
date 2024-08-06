@@ -3,18 +3,20 @@ from discord.ext import commands
 from main import *
 from openai_custom import *
 
-
-bot = commands.Bot()
+intents = discord.Intents.default()
+bot = commands.Bot(bot = commands.Bot(command_prefix="mogus"))
 
 busy = False
 
-@discord.option("first", type=discord.SlashCommandOptionType.string) # type = str also works
-@discord.option("second", type=discord.SlashCommandOptionType.string) # type = str also works
+
+@bot.command()
+async def bogus(ctx):
+    await ctx.send('meow')
 
 @bot.slash_command(
    name="custom_video",
     description="Add custom characters, character traits, and plot",
-    guild_ids=[836742375577485344, 933924457079275540]
+    guild_ids=[836742375577485344, 933924457079275540, 716501165772374096]
 )
 async def create_video(
   ctx, 
@@ -34,13 +36,13 @@ async def create_video(
     
     
     embed = discord.Embed(
-        title="Video from @"+ctx.user.name,
+        title="Video generated from @"+ctx.user.name,
         description="Thanks for using mogusbogusmeow",
-        color=0x00ff00  # You can customize the color
+        color=0x460e7e  # You can customize the color
     )
     
     # Replace 'FILE_ID' with the actual ID of your video file
-    embed.add_field(name="epic video!!1!", value=f"[Click to view]({youtube_link})")
+    embed.add_field(name="epic video below!", value=f"[Click to view]({youtube_link})")
     await ctx.respond(embed=embed)
         
     # await ctx.respond("Link: "+youtube_link)
