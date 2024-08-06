@@ -24,14 +24,14 @@ async def create_video(
     if busy:
         await ctx.response.send_message("Making a different video rn, try again in a few mins")
         return
-    await ctx.respond("Starting generation (this may take a couple minutes)")
     busy = True
+    await ctx.respond("Starting generation (this may take a couple minutes)")
+    
     set_username(ctx.user.name)
     get_openai_response(characters=characters, plot=plot_description)
-    make_money(1)
-    await ctx.respond("It's finished! Link: ")
+    youtube_link = make_money(1)
+    await ctx.respond("It's finished! Link: "+youtube_link)
     busy = False
-    await ctx.response.send_message("Video made successfully")
     
 
 ffile = open('data/secret.txt', 'r')

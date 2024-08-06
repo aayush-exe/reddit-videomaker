@@ -2,8 +2,6 @@ import json
 
 
 # formats input from JSON file to be used later
-
-
 def load_input(input_file_path):
     json_input = '''[\n'''
     with open(input_file_path, 'r') as file:
@@ -15,7 +13,7 @@ def load_input(input_file_path):
 
 
 
-# function to be called in main hopefully LMAO
+# function to be called in main
 def generate_subtitles(local_file_path = 'voice-output/speech'):
     
     # loading input and calling prev func
@@ -37,8 +35,10 @@ def generate_subtitles(local_file_path = 'voice-output/speech'):
     
     
     # Haha just kidding
-    # that was the original plan but moviepy doesn't let you render the blue on top of the white and its difficult to have it line up
+    # that was the original plan but moviepy doesn't let you render the blue on top of the white and its difficult to have it line up because font isn't monospaced
     # so i will just have it put up one word at a time (which is more common)
+    
+    # TODO: have title show up as one big block
         
     i = 0
     while i < num_words:
@@ -48,6 +48,7 @@ def generate_subtitles(local_file_path = 'voice-output/speech'):
         end_time = (speech_marks[i + 1]['time']) if i + 1 < num_words else start_time + 1500
         current_word = speech_marks[i]['value']
         
+        # if one word is too short time display on the screen, combine it with the next word
         if (end_time - start_time)<170 and i + 2 < num_words:
             end_time = (speech_marks[i + 2]['time'])
             current_word += " "+speech_marks[i+1]['value']

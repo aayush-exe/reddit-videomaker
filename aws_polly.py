@@ -83,6 +83,3 @@ def synthesize_polly_speech(input_text, local_file_name, speed_mod):
     else:
         print("ERROR: Response did not contain speech marks data")
         sys.exit(-1)
-
-# testcase
-

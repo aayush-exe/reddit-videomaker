@@ -1,9 +1,11 @@
 import re
 
 def replace_acronyms(text):
-    # Replace common acronyms with their full-length counterparts.
+    # replaces common acronyms with their full-length counterparts
+    # thanks chatgpt
     replacements = {
         "AITA": "Am I the asshole",
+        "AITAH": "Am I the asshole",
         "TIL": "Today I learned",
         "IMO": "In my opinion",
         "IMHO": "In my humble opinion",
@@ -93,7 +95,8 @@ def replace_acronyms(text):
         "TY": "Thank you"
         }
 
-    # Use regular expressions to replace whole words only
+    # uses regex to replace whole words only
+    # thanks chatgpt again
     pattern = re.compile(r'\b(' + '|'.join(replacements.keys()) + r')\b')
     result = pattern.sub(lambda x: replacements[x.group()], text)
     return result
@@ -119,13 +122,3 @@ def get_title(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         first_line = file.readline().strip()
     return first_line
-
-# Example usage:
-# file_path = 'path_to_your_text_file.txt'
-# title = get_title(file_path)
-# print(title)
-
-# Example usage:
-# file_path = 'path_to_your_text_file.txt'
-# final_text = process_text_file(file_path)
-# print(final_text)
