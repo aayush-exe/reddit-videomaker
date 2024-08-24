@@ -3,6 +3,14 @@ from discord.ext import commands
 from main import *
 from openai_custom import *
 
+
+
+def self_test():
+    get_openai_response(characters=input("Characters: "), plot=input("Plot: "))
+    youtube_link = make_money(1).strip()
+    print(youtube_link)
+    return youtube_link
+self_test()
 intents = discord.Intents.default()
 bot = commands.Bot(bot = commands.Bot(command_prefix="mogus"))
 
@@ -51,4 +59,4 @@ async def create_video(
 
 ffile = open('data/secret.txt', 'r')
 
-bot.run(ffile.readline().strip())
+#bot.run(ffile.readline().strip())
